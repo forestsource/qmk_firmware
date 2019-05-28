@@ -38,6 +38,7 @@ enum custom_keycodes {
     DEL_ID4,              /* Delete bonding of PeerID 4           */
     ENT_DFU,              /* Start bootloader                     */
     ENT_SLP,              /* Deep sleep mode                      */
+    BSP_DEL,
     QWERTY,
     COLEMAK,
     DVORAK,
@@ -47,12 +48,16 @@ enum custom_keycodes {
     BACKLIT,
     EISU,
     KANA,
+    NUMBER,
+    SYMBOL,
+    FUNCTION,
     RGBRST
 };
 
 
 extern keymap_config_t keymap_config;
 
+#if HELIX_ROWS == 5
 enum layer_number {
     _QWERTY = 0,
     _COLEMAK,
@@ -61,10 +66,67 @@ enum layer_number {
     _RAISE,
     _ADJUST
 };
+# else
+enum layer_number {
+    _QWERTY = 0,
+    _NUMBER,
+    _SYMBOL,
+    _FUNCTION
+};
+#endif
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+
+#define KC______ KC_TRNS
+#define KC_XXXXX KC_NO
+#define KC_LOWER LOWER
+#define KC_RAISE RAISE
+#define KC_RST   RESET
+#define KC_LRST  RGBRST
+#define KC_LTOG  RGB_TOG
+#define KC_LHUI  RGB_HUI
+#define KC_LHUD  RGB_HUD
+#define KC_LSAI  RGB_SAI
+#define KC_LSAD  RGB_SAD
+#define KC_LVAI  RGB_VAI
+#define KC_LVAD  RGB_VAD
+#define KC_LMOD  RGB_MOD
+#define KC_CTLTB CTL_T(KC_TAB)
+#define KC_GUIEI GUI_T(KC_LANG2)
+#define KC_ALTKN ALT_T(KC_LANG1)
+
+// custom keys
+#define KC_LCTT LCTL_T(KC_TAB)
+#define KC_LSTN LSFT_T(KC_NO)
+#define KC_RATN RALT_T(KC_NO)
+#define KC_LGL2 LGUI_T(KC_LANG2)
+#define KC_RGL1 RGUI_T(KC_LANG1)
+#define KC_MVOM KC__MUTE
+#define KC_MVOD KC__VOLDOWN
+#define KC_MVOU KC__VOLDOWN
+
+// ble
+#define KC_BT_E BLE_EN
+#define KC_BT_D BLE_DIS
+#define KC_AD_B AD_WO_L
+
+// mac
+#define KC_BRU KC_PAUSE // backlight up
+#define KC_BRD KC_SCROLLLOCK // backlight down
+
+// layer change
+#define KC_NUM TT(_NUMBER)
+#define KC_SYM TT(_SYMBOL)
+#define KC_FUN TT(_FUNCTION)
+
+// layer
+#define KC_GQWE TO(_QWERTY)
+#define KC_GNUM TO(_NUMBER)
+#define KC_GSYM TO(_SYMBOL)
+#define KC_GFUN TO(_FUNCTION)
+
 
 #if HELIX_ROWS == 5
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -197,7 +259,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       )
 };
 
-#elif HELIX_ROWS == 4
+#elif HELIX_ROWS == 0
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
@@ -308,10 +370,62 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, AD_WO_L, BLE_DIS, USB_EN,  _______, _______, _______, _______, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD \
       )
 };
+#elif HELIX_ROWS == 4
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [_QWERTY] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      GESC,   Q,     W,     E,     R,     T,                   	   Y,    U,     I,     O,     P,    BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      LCTT,   A,     S,     D,     F,     G,                       H,    J,     K,     L,    SCLN,  QUOT,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      LSTN,   Z,     X,     C,     V,     B,                       N,    M,   COMM,   DOT,   SLSH,  RATN,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  SYM,   LGL2,  SPC,       ENT,  RGL1,  NUM\
+                              //`--------------------'  `-----------------------'
+  ),
+
+  [_NUMBER] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      TRNS,   1,     2,     3,     4,     5,                       6,     7,    8,     9,     0,    BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      TRNS,   F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,   F9,    F10,   FUN,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      TRNS,  F11,   F12,   F13,   F14,   F15,                     F16,   F17,   F18,  F19,   F20,   RSFT,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  SYM,   TRNS,  SPC,      ENT,   TRNS,  TRNS\
+                              //`--------------------'  `-----------------------'
+  ),
+
+  [_SYMBOL] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      TRNS,  EXLM,   AT,   HASH,  DLR,   PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      TRNS,   NO,    NO,    NO,   PAST,  PLUS,                   MINS,  EQL,   LCBR,  RCBR,  PIPE,   FUN,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      LSFT,   NO,    NO,    NO,   PSLS,  PMNS,                   UNDS,  GRV,   LBRC,  RBRC,  BSLS,   NO,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  TRNS,  TRNS,  SPC,      ENT,   TRNS,  NUM\
+                              //`--------------------'  `-----------------------'
+  ),
+
+  [_FUNCTION] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      RST,    NO,    NO,   MVOM,  MVOD,  MVOU,                    NO,   BRD,   BRU,   NO,    NO,    BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      LTOG,   NO,    MS_L, MS_D,  MS_U,  MS_R,                   LEFT,  DOWN,   UP,   RGHT,   NO,   TRNS,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+       NO,    UNDO,  CUT,  COPY,  PSTE,   NO,                    BTN1,  BTN2,   NO,   AD_B,  BT_E,  BT_D,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  GQWE,  TRNS,  SPC,      ENT,  TRNS,  GQWE\
+                              //`--------------------'  `-----------------------'
+  )
+};
+
 #else
 #error "undefined keymaps"
 #endif
 
+#if HELIX_ROWS == 5
 // define variables for reactive RGB
 bool TOG_STATUS = false;
 int RGB_current_mode;
@@ -337,9 +451,13 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
     layer_off(layer3);
   }
 }
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   char str[16];
+  uint8_t bdk;
+
+  #if HELIX_ROWS == 5
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -467,6 +585,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
       break;
   }
+  #endif
   if (record->event.pressed) {
     switch (keycode) {
     case DELBNDS:
@@ -525,6 +644,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ENT_DFU:
       bootloader_jump();
       return false;
+    case BSP_DEL:
+      bdk = KC_BSPC;
+      if (keyboard_report->mods) {
+        bdk = KC_DEL;
+      }
+      if (record->event.pressed){
+        register_code(bdk);
+      }else{
+        unregister_code(bdk);
+      }
     }
   }
   else if (!record->event.pressed) {

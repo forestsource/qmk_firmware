@@ -27,14 +27,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Yushakobo
-#define PRODUCT         Helix Beta
-#define DESCRIPTION     A split keyboard for the cheap makers
+#define MANUFACTURER    foostan
+#define PRODUCT         Crkbd
+#define DESCRIPTION     A split keyboard with 3x6 vertically staggered keys and 3 thumb keys
 
 /* key matrix size */
 #if  HELIX_ROWS == 4
   #define MATRIX_ROWS 8
   #define LAYOUT LAYOUT_HELIX_4ROW
+  #define LAYOUT_kc LAYOUT_HELIX_4ROW_kc
 #elif HELIX_ROWS == 5
   #define MATRIX_ROWS 10
   #define LAYOUT LAYOUT_HELIX_5ROW
@@ -70,6 +71,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
   #define RGBLED_NUM 6
 #endif
+
+// #define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 150
+#define TAPPING_TOGGLE 2
 
 /*
  * Feature disable options
