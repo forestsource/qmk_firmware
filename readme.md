@@ -1,35 +1,101 @@
-# Quantum Mechanical Keyboard Firmware
-
-[![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![Build Status](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
-[![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
-[![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![GitHub contributors](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
-[![GitHub forks](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
-
-This is a keyboard firmware based on the [tmk\_keyboard firmware](http://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](http://www.ergodox-ez.com) keyboard, and the [Clueboard product line](http://clueboard.co/).
-
 ## Documentation
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
 
 The docs are hosted on [Gitbook](https://www.gitbook.com/book/qmk/firmware/details) and [GitHub](/docs/) (they are synced). You can request changes by making a fork and [pull request](https://github.com/qmk/qmk_firmware/pulls), or by clicking the "suggest an edit" link on any page of the docs.
 
-## Supported Keyboards
+## Key
 
-* [Planck](/keyboards/planck/)
-* [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/clueboard/17/)
-* [Atreus](/keyboards/atreus/)
+```
+  [_QWERTY] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      GESC,   Q,     W,     E,     R,     T,                       Y,    U,     I,     O,     P,    BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      LCTT,   A,     S,     D,     F,     G,                       H,    J,     K,     L,    SCLN,  QUOT,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      LSTN,   Z,     X,     C,     V,     B,                       N,    M,   COMM,   DOT,   SLSH,  RATN,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  SYM,   LGL2,  SHSP,     SHEN,  RGL1,  NUM\
+                              //`--------------------'  `-----------------------'
+  ),
 
-The project also includes community support for [lots of other keyboards](/keyboards/).
+  [_NUMBER] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      TRNS,   1,     2,     3,     4,     5,                       6,     7,    8,     9,     0,    BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      TRNS,   F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,   F9,    F10,   FUN,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      TRNS,  F11,   F12,   F13,   F14,   F15,                     NO,    NO,    NO,    NO,   AD0,   TRNS,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  SYM,   TRNS,  TRNS,     TRNS,   TRNS,  TRNS\
+                              //`--------------------'  `-----------------------'
+  ),
 
-## Maintainers
+  [_SYMBOL] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      TRNS,  EXLM,   AT,   HASH,  DLR,   PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      TRNS,   NO,    NO,    NO,   PAST,  PLUS,                   MINS,  EQL,   PIPE,  LBRC,  RBRC,  FUN,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      TRNS,  AD0,    NO,    NO,   PSLS,  PMNS,                   UNDS,  GRV,   BSLS,  LABK,  RABK,  NO,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  TRNS,  TRNS,  TRNS,     TRNS,   TRNS,  NUM\
+                              //`--------------------'  `-----------------------'
+  ),
 
-QMK is developed and maintained by Jack Humbert of OLKB with contributions from the community, and of course, [Hasu](https://github.com/tmk). The OLKB product firmwares are maintained by [Jack Humbert](https://github.com/jackhumbert), the Ergodox EZ by [Erez Zukerman](https://github.com/ezuk), the Clueboard by [Zach White](https://github.com/skullydazed), and the Atreus by [Phil Hagelberg](https://github.com/technomancy).
+  [_FUNCTION] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+      RST,    NO,    NO,   MVOM,  MVOD,  MVOU,                    NO,   BRD,   BRU,    NO,    NO,   BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      LTOG,   NO,    MS_L, MS_D,  MS_U,  MS_R,                   LEFT,  DOWN,   UP,   RGHT,   NO,   TRNS,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      TRNS,   NO,    NO,    NO,   HOME,  END,                     NO,  BTN1,   BTN2,  NO,     NO,   NO,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  GQWE,  TRNS,  TRNS,     TRNS,  TRNS,  GQWE\
+                              //`--------------------'  `-----------------------'
+  )
+```
 
-## Official website
+### custom key code
 
-[http://qmk.fm](http://qmk.fm) is the official website of QMK, where you can find links to this page, the documentation, and the keyboards supported by QMK.
+```
+// custom keys
+#define KC_LCTT LCTL_T(KC_TAB)
+#define KC_LSTN LSFT_T(KC_NO)
+#define KC_RATN RALT_T(KC_NO)
+#define KC_LGL2 LGUI_T(KC_LANG2)
+#define KC_RGL1 RGUI_T(KC_LANG1)
+#define KC_SHSP LSFT(KC_SPC)
+#define KC_SHEN RSFT(KC_ENT)
+
+#define KC_MVOM KC__MUTE
+#define KC_MVOD KC__VOLDOWN
+#define KC_MVOU KC__VOLUP
+
+// ble
+#define KC_BT_E BLE_EN
+#define KC_BT_D BLE_DIS
+#define KC_AD_B AD_WO_L
+#define KC_AD0  ADV_ID0
+#define KC_AD1  ADV_ID1
+#define KC_AD2  ADV_ID2
+#define KC_AD3  ADV_ID3
+#define KC_AD4  ADV_ID4
+#define KC_DFU  ENT_DFU
+
+// mac
+#define KC_BRU KC_PAUSE // backlight up
+#define KC_BRD KC_SCROLLLOCK // backlight down
+
+// layer change
+#define KC_NUM TT(_NUMBER)
+#define KC_SYM TT(_SYMBOL)
+#define KC_FUN TT(_FUNCTION)
+
+// layer
+#define KC_GQWE TO(_QWERTY)
+#define KC_GNUM TO(_NUMBER)
+#define KC_GSYM TO(_SYMBOL)
+#define KC_GFUN TO(_FUNCTION)
+
+```
