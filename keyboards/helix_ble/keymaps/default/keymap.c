@@ -38,7 +38,9 @@ enum custom_keycodes {
     DEL_ID4,              /* Delete bonding of PeerID 4           */
     ENT_DFU,              /* Start bootloader                     */
     ENT_SLP,              /* Deep sleep mode                      */
-    BSP_DEL,
+    M_BSP_DEL,
+    TMUX_PRE,
+    SW_NUM,
     QWERTY,
     COLEMAK,
     DVORAK,
@@ -103,8 +105,10 @@ enum layer_number {
 #define KC_RATN RALT_T(KC_NO)
 #define KC_LGL2 LGUI_T(KC_LANG2)
 #define KC_RGL1 RGUI_T(KC_LANG1)
-#define KC_SHSP LSFT(KC_SPC)
-#define KC_SHEN RSFT(KC_ENT)
+#define KC_SHSP LSFT_T(KC_SPC)
+#define KC_SHEN RSFT_T(KC_ENT)
+#define KC_TMUX TMUX_PRE
+#define KC_SW_NUM SW_NUM
 
 #define KC_MVOM KC__MUTE
 #define KC_MVOD KC__VOLDOWN
@@ -145,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       LCTT,   A,     S,     D,     F,     G,                       H,    J,     K,     L,    SCLN,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LSTN,   Z,     X,     C,     V,     B,                       N,    M,   COMM,   DOT,   SLSH,  RATN,\
+      LSTN,   Z,     X,     C,     V,     B,                       N,    M,   COMM,   DOT,   SLSH,  RALT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   SYM,   LGL2,  SHSP,     SHEN,  RGL1,  NUM\
                               //`--------------------'  `-----------------------'
@@ -153,37 +157,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMBER] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      TRNS,   1,     2,     3,     4,     5,                       6,     7,    8,     9,     0,    BSPC,\
+      TRNS,   1,     2,     3,     4,     5,                       6,     7,    8,     9,     0,    TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      TRNS,   F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,   F9,    F10,   FUN,\
+      TRNS,   F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10,   FUN,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      TRNS,  F11,   F12,   F13,   F14,   F15,                     NO,    NO,    NO,    NO,   AD0,   TRNS,\
+      TRNS,  F11,   F12,   PEQL,  PSLS,  PAST,                    NO,   PMNS,  PLUS,  PEQL,  AD_B,  TRNS,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  SYM,   TRNS,  TRNS,     TRNS,   TRNS,  TRNS\
+                                  FUN,   TRNS,  TRNS,     TRNS,   TRNS,  TRNS\
                               //`--------------------'  `-----------------------'
   ),
 
   [_SYMBOL] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      TRNS,  EXLM,   AT,   HASH,  DLR,   PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
+      TRNS,  EXLM,   AT,   HASH,  DLR,   PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      TRNS,   NO,    NO,    NO,   PAST,  PLUS,                   MINS,  EQL,   PIPE,  LBRC,  RBRC,  FUN,\
+      TRNS,  TMUX,   NO,    NO,   PAST,  PLUS,                   MINS,  EQL,   PIPE,  LBRC,  RBRC,  FUN,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      TRNS,  AD0,    NO,    NO,   PSLS,  PMNS,                   UNDS,  GRV,   BSLS,  LABK,  RABK,  NO,\
+      TRNS,  AD_B,   NO,    NO,   PSLS,  PMNS,                   UNDS,  GRV,   BSLS,  LABK,  RABK,  TRNS,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  TRNS,  TRNS,  TRNS,     TRNS,   TRNS,  NUM\
+                                  TRNS,  TRNS,  TRNS,     TRNS,   TRNS,  FUN\
                               //`--------------------'  `-----------------------'
   ),
 
   [_FUNCTION] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-      RST,    NO,    NO,   MVOM,  MVOD,  MVOU,                    NO,   BRD,   BRU,    NO,    NO,   BSPC,\
+      RST,    NO,    NO,   MVOM,  MVOD,  MVOU,                    NO,   BRD,   BRU,    NO,    NO,   TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LTOG,   NO,    MS_L, MS_D,  MS_U,  MS_R,                   LEFT,  DOWN,   UP,   RGHT,   NO,   TRNS,\
+      TRNS,   NO,   MS_L,  MS_D,  MS_U,  MS_R,                   LEFT,  DOWN,   UP,   RGHT,   NO,   TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      TRNS,   NO,    NO,    NO,   HOME,  END,                     NO,  BTN1,   BTN2,  NO,     NO,   NO,\
+      TRNS,   NO,    NO,    NO,   HOME,  END,                     NO,  BTN1,   BTN2,   NO,    NO,   TRNS,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GQWE,  TRNS,  TRNS,     TRNS,  TRNS,  GQWE\
+                                  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS\
                               //`--------------------'  `-----------------------'
   )
 };
@@ -222,7 +226,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   char str[16];
-  uint8_t bdk;
 
   #if HELIX_ROWS == 5
   switch (keycode) {
@@ -411,26 +414,53 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ENT_DFU:
       bootloader_jump();
       return false;
-    case BSP_DEL:
-      bdk = KC_BSPC;
-      if (keyboard_report->mods) {
-        bdk = KC_DEL;
-      }
-      if (record->event.pressed){
-        register_code(bdk);
-        return false;
-      }else{
-        unregister_code(bdk);
-        return false;
-      }
+    case TMUX_PRE:
+      SEND_STRING(SS_LCTRL("z"));
+      return false;
     }
   }
   else if (!record->event.pressed) {
     switch (keycode) {
     case ENT_SLP:
       sleep_mode_enter();
+    }
+  }
+  return true;
+}
+;
+
+/**
+ * Change ctrl+backspace into delete and do not register the ctrl modifier.
+ */
+static bool control_disabled = false;
+static bool delete_pressed = false;
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  if(keycode == KC_BSPC) {
+    if (record->event.pressed) {
+      if(keyboard_report->mods & MOD_BIT(KC_LCTL)) {
+        delete_pressed = true;
+        control_disabled = true;
+        unregister_code(KC_LCTL);
+        register_code(KC_DEL);
+        return false;
+      }
+    } else if(delete_pressed) {
+      delete_pressed = false;
+      unregister_code(KC_DEL);
+
+      if(control_disabled) {
+        control_disabled = false;
+        register_code(KC_LCTL);
+      }
       return false;
     }
+  } else if(keycode == KC_LCTL && !record->event.pressed && delete_pressed) {
+    delete_pressed = false;
+    control_disabled = false;
+    unregister_code(KC_DEL);
+    register_code(KC_BSPC);
+    return false;
   }
   return true;
 }
