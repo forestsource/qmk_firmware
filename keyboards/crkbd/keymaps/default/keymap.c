@@ -43,8 +43,19 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   BACKLIT,
-  RGBRST
+  RGBRST,
+  M_BSP_DEL,
+  TMUX_PRE,
+  SW_NUM,
+  NUMBER,
+  SYMBOL,
+  FUNCTION
 };
+
+#define _QWERTY 0
+#define _NUMBER 1
+#define _SYMBOL 2
+#define _FUNCTION 3
 
 enum macro_keycodes {
   KC_SAMPLEMACRO,
@@ -68,53 +79,84 @@ enum macro_keycodes {
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
 
+// custom keys
+#define KC_LCTT LCTL_T(KC_TAB)
+#define KC_LSTN LSFT_T(KC_NO)
+#define KC_RATN RALT_T(KC_NO)
+#define KC_LGL2 LGUI_T(KC_LANG2)
+#define KC_RGL1 RGUI_T(KC_LANG1)
+#define KC_SHSP LSFT_T(KC_SPC)
+#define KC_SHEN RSFT_T(KC_ENT)
+#define KC_TMUX TMUX_PRE
+#define KC_SW_NUM SW_NUM
+
+#define KC_MVOM KC__MUTE
+#define KC_MVOD KC__VOLDOWN
+#define KC_MVOU KC__VOLUP
+
+// mac
+#define KC_BRU KC_PAUSE // backlight up
+#define KC_BRD KC_SCROLLLOCK // backlight down
+
+// layer change
+#define KC_NUM TT(_NUMBER)
+#define KC_SYM TT(_SYMBOL)
+#define KC_FUN TT(_FUNCTION)
+
+// layer
+#define KC_GQWE TO(_QWERTY)
+#define KC_GNUM TO(_NUMBER)
+#define KC_GSYM TO(_SYMBOL)
+#define KC_GFUN TO(_FUNCTION)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
+      GESC,   Q,     W,     E,     R,     T,                   	   Y,    U,     I,     O,     P,    BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  QUOT,\
+      LCTT,   A,     S,     D,     F,     G,                       H,    J,     K,     L,    SCLN,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RSFT,\
+      LSTN,   Z,     X,     C,     V,     B,                       N,    M,   COMM,   DOT,   SLSH,  RALT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
-                              //`--------------------'  `--------------------'
+                                  SYM,   LGL2,  SHSP,     SHEN,  RGL1,  NUM\
+                              //`--------------------'  `-----------------------'
   ),
 
-  [_LOWER] = LAYOUT_kc( \
+  [_NUMBER] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,  BSPC,\
+      TRNS,   1,     2,     3,     4,     5,                       6,     7,    8,     9,     0,    TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
+      TRNS,   F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10,   FUN,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,   F11,   F12,   F13,   F14,   F15,                    F16,   F17,   F18,   F19,   F20, XXXXX,\
+      TRNS,  F11,   F12,   PEQL,  PSLS,  PAST,                    NO,   PMNS,  PLUS,  PEQL,   NO,  TRNS,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
-                              //`--------------------'  `--------------------'
+                                  FUN,   TRNS,  TRNS,     TRNS,   TRNS,  TRNS\
+                              //`--------------------'  `-----------------------'
   ),
 
-  [_RAISE] = LAYOUT_kc( \
+  [_SYMBOL] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
+      TRNS,  EXLM,   AT,   HASH,  DLR,   PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   MINS,   EQL,  LCBR,  RCBR,  PIPE,   GRV,\
+      TRNS,  TMUX,   NO,    NO,   PAST,  PLUS,                   MINS,  EQL,   PIPE,  LBRC,  RBRC,  FUN,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   UNDS,  PLUS,  LBRC,  RBRC,  BSLS,  TILD,\
+      TRNS,   NO,    NO,    NO,   PSLS,  PMNS,                   UNDS,  GRV,   BSLS,  LABK,  RABK,  TRNS,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
-                              //`--------------------'  `--------------------'
+                                  TRNS,  TRNS,  TRNS,     TRNS,   TRNS,  FUN\
+                              //`--------------------'  `-----------------------'
   ),
 
-  [_ADJUST] = LAYOUT_kc( \
+  [_FUNCTION] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+      RST,    NO,    NO,   MVOM,  MVOD,  MVOU,                    NO,   BRD,   BRU,    NO,    NO,   TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+      TRNS,   NO,   MS_L,  MS_D,  MS_U,  MS_R,                   LEFT,  DOWN,   UP,   RGHT,   NO,   TRNS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      LSMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+      TRNS,   NO,    NO,    NO,   HOME,  END,                     NO,  BTN1,   BTN2,   NO,    NO,   TRNS,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  GUIEI, LOWER,   SPC,      ENT, RAISE, ALTKN \
-                              //`--------------------'  `--------------------'
+                                  TRNS,  TRNS,  TRNS,     TRNS,  TRNS,  TRNS\
+                              //`--------------------'  `-----------------------'
   )
 };
 
@@ -239,8 +281,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
+    case TMUX_PRE:
+      SEND_STRING(SS_LCTRL("z"));
+      return false;
+      break;
   }
   return true;
 }
+;
+
+/**
+ * Change ctrl+backspace into delete and do not register the ctrl modifier.
+ */
+static bool control_disabled = false;
+static bool delete_pressed = false;
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  if(keycode == KC_BSPC) {
+    if (record->event.pressed) {
+      if(keyboard_report->mods & MOD_BIT(KC_LCTL)) {
+        delete_pressed = true;
+        control_disabled = true;
+        unregister_code(KC_LCTL);
+        register_code(KC_DEL);
+        return false;
+      }
+    } else if(delete_pressed) {
+      delete_pressed = false;
+      unregister_code(KC_DEL);
+
+      if(control_disabled) {
+        control_disabled = false;
+        register_code(KC_LCTL);
+      }
+      return false;
+    }
+  } else if(keycode == KC_LCTL && !record->event.pressed && delete_pressed) {
+    delete_pressed = false;
+    control_disabled = false;
+    unregister_code(KC_DEL);
+    register_code(KC_BSPC);
+    return false;
+  }
+  return true;
+}
+;
 
 #endif
