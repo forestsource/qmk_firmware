@@ -124,3 +124,11 @@ The docs are hosted on [Gitbook](https://www.gitbook.com/book/qmk/firmware/detai
 #define KC_GFUN TO(_FUNCTION)
 
 ```
+
+# compile
+### Using BLE MICRO
+```
+git checkout nrf52
+make helix_ble/master:nrfutil
+make helix_ble/slave:nrfutil
+```
